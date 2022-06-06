@@ -10,7 +10,7 @@ const getArticles = async (req, res) => {
 };
 
 const createArticle = async (req, res) => {
-  const { title, description, technologies, paraf } = req.body;
+  const { title, description, technologies, paraf, urlProject } = req.body;
   const date = new Date();
   const { imageName } = req;
   try {
@@ -21,6 +21,7 @@ const createArticle = async (req, res) => {
       imgName: imageName,
       technologies,
       date,
+      urlProject,
     });
     res.status(201).json("Créer");
   } catch (err) {

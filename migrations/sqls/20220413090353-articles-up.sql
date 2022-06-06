@@ -6,5 +6,6 @@ CREATE TABLE IF NOT EXISTS `articles` (
   `paraf` TEXT,
   `imgName` VARCHAR (255) NOT NULL,
   `technologies` VARCHAR (255) NOT NULL,
-  `date` VARCHAR (255) NOT NULL
+  `date` VARCHAR (255) NOT NULL,
+  `urlProject` VARCHAR (200)
 ) ENGINE = InnoDB;

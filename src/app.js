@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
 const mainRouter = require("./routes");
 
 const app = express();
@@ -16,11 +17,7 @@ app.use(
       "Content-Type, Authorization, X-requested-With, Accept, xsrf-token",
   })
 );
-
-app.get("/", (req, res) => {
-  res.status(200).json({ hello: "World" });
-});
-
+app.use(cookieParser());
 app.use("/api", mainRouter);
 app.use("/images", express.static("./images"));
 

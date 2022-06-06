@@ -17,7 +17,6 @@ const postImageObject = (req, res, next) => {
       cb(null, `${Date.now()}-${file.originalname}`);
     },
   });
-  console.log("file", req.file);
   const upload = multer({ storage }).single("file");
 
   upload(req, res, (err) => {
@@ -32,8 +31,6 @@ const postImageObject = (req, res, next) => {
 
 const postImage = async (req, res, next) => {
   const { imageName } = req;
-  console.log("name file", imageName);
-
   try {
     const [result] = await Images.postOne(imageName);
     next();
