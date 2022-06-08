@@ -8,7 +8,10 @@ const login = async (req, res, next) => {
   if (result.length === 0) {
     res.status(400).send("email ou mot de passe incorrect");
   } else {
-    const validPassword = await User.verifyPassword(password, result[0].password);
+    const validPassword = await User.verifyPassword(
+      password,
+      result[0].password
+    );
     if (validPassword) {
       delete result[0].password;
       req.user = result[0];
@@ -20,17 +23,26 @@ const login = async (req, res, next) => {
 };
 
 const createAccessToken = (req, res) => {
-  const token = jwt.sign(req.user, process.env.JWT_SECRET, { expiresIn: "15m" });
+  const { id, email } = req.user;
+  const token = jwt.sign(req.user, process.env.JWT_SECRET, {
+    expiresIn: "15m",
+  });
+
+  const results = {
+    id,
+    email,
+    token,
+  };
 
   res
     .status(200)
     .cookie("token", token, { httpOnly: true, maxAge: 900000 })
-    .json(req.user);
+    .json(results);
 };
 
 const verifyAccessToken = async (req, res, next) => {
-  const { token } = req.cookies;
-  if (token) {
+  if (req.headers.authorization) {
+    const token = req.headers.authorization.split(" ")[1];
     jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
       if (err) {
         res.sendStatus(403);

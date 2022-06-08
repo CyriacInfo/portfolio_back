@@ -2,7 +2,6 @@ const { User } = require("../models");
 
 const validateDataCreateUser = async (req, res, next) => {
   const { email, password } = req.body;
-  //   console.log(User.emailAlreadyExists(email));
   if (await User.emailAlreadyExists(email)) {
     res.status(400).send("Email already used");
   } else if (!User.validatePassword(password)) {
