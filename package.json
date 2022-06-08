@@ -8,7 +8,7 @@
     "create-db-migration": "db-migrate create $NAME --sql-file",
     "migrate-db": "db-migrate up",
     "rollback-last-db-migration": "db-migrate down",
-    "start": "nodemon src/index.js",
+    "start": "node src/index.js",
     "dev": "nodemon src/index.js",
     "migrate-db-reset": "db-migrate reset",
     "test:rollback-last-db-migration": "db-migrate down -e test"
